@@ -11,15 +11,7 @@ const userController = require('./controllers/userController');
 const cookieController = require('./util/cookieController');
 const sessionController = require('./session/sessionController');
 
-
 const app = express();
-
-/**
-* Set our Express view engine as ejs.
-* This means whenever we call res.render, ejs will be used to compile the template.
-* ejs templates are located in the client/ directory
-*/
-app.set('view engine', 'ejs');
 
 /**
 * Automatically parse urlencoded body content from incoming requests and place it
