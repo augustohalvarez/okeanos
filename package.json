@@ -1,0 +1,19 @@
+{
+  "name": "okeanos",
+  "version": "1.0.0",
+  "description": "ML-based application that responds to incoming meteorological data with surf spot recommendations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustohalvarez/okeanos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/augustohalvarez/okeanos/issues"
+  },
+  "homepage": "https://github.com/augustohalvarez/okeanos#readme"
+}
