@@ -13,8 +13,8 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
-// describe!
-app.use(express.static(path.join(__dirname, 'public')));
+// dThis tells Node/Express that the /client folder should act as the web root
+app.use(express.static('client'));
 
 // Automatically parse urlencoded body content from incoming requests and place it
 app.use(bodyParser.urlencoded({ extended: true }));
