@@ -13,7 +13,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
-// dThis tells Node/Express that the /client folder should act as the web root
+// This tells Node/Express that the /client folder should act as the web root
 app.use(express.static('client'));
 
 // Automatically parse urlencoded body content from incoming requests and place it
@@ -28,6 +28,14 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
+
+app.set('port', 3000);
+app.listen(app.get('port'), function () {
+  console.log('Node server listening on port 3000');
+});
+
+module.exports = app;
+
 
 //
 //
@@ -85,8 +93,3 @@ app.get('/', (req, res) => {
 //                                res.render('./../client/secret', { users: users });
 //                              });
 //                            });
-
-
-app.listen(3000);
-
-module.exports = app;

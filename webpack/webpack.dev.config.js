@@ -29,6 +29,23 @@ module.exports = {
   },
   devServer: {
     contentBase: parentDir,
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+
+    host: 'localhost',
+    port: 8080,
+    proxy: {
+      '^/api/*': {
+        target: 'http://localhost:3000/api/',
+        secure: false
+      }
+    }
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin({
+      multiStep: true
+    })
+  ],
+  devtool: 'inline-source-map' // This fixes: 'Source map error: request failed with status 404'
 }
