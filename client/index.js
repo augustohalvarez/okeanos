@@ -1,15 +1,7 @@
-console.log('inside index.js');
-
 import React from 'react';
-import { render } from 'react-dom';
-import Button from 'material-ui/Button';
+import ReactDOM from 'react-dom';
+// import Button from 'material-ui/Button';
 
+import App from './containers/App';
 
-const App = () =>
-  <h1>WHATSAPPPPPP</h1>
-  <Button raised color="primary">
-    Hello World
-  </Button>
-
-
-render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'))
