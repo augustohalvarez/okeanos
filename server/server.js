@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // Root
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'));
+  res.sendFile(path.resolve(__dirname, '../www/index.html'));
 });
 
 app.set('port', 3000);

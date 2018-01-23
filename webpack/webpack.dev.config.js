@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+const TransferWebpackPlugin = require('transfer-webpack-plugin');
 
 var parentDir = path.join(__dirname, '../');
 
@@ -14,7 +15,7 @@ module.exports = {
 				exclude: /node_modules/,
 				loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react', 'stage-0'] // <--- here
+          presets: ['es2015', 'react', 'stage-0']
         }
 			},
       {
@@ -45,7 +46,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin({
       multiStep: true
-    })
+    }),
+    new TransferWebpackPlugin([
+      {from:'www'},
+    ], path.resolve(__dirname, '../')),
   ],
-  devtool: 'inline-source-map' // This fixes: 'Source map error: request failed with status 404'
-}
+   // This fixes: 'Source map error: request failed with status 404'
+};
