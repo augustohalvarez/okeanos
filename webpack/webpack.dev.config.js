@@ -6,7 +6,9 @@ var parentDir = path.join(__dirname, '../');
 
 module.exports = {
 	entry: [
-		path.join(__dirname, '../client/index.js')
+		path.join(__dirname, '../client/index.js'),
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://localhost:8081'
 	],
   module: {
 		loaders: [
@@ -25,6 +27,7 @@ module.exports = {
 		]
   },
   output: {
+    publicPath: "http://localhost:8081/assets/",
     path: parentDir + '/dist',
     filename: 'bundle.js'
   },
