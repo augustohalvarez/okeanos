@@ -1,131 +1,106 @@
-/*** server.js ***/
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 
-// Controller Requirements
-// const userController = require('./controllers/userController');
-// const cookieController = require('./util/cookieController');
-// const sessionController = require('./controllers/sessionController');
+const userController = require('./user/userController');
+const cookieController = require('./util/cookieController');
+const sessionController = require('./session/sessionController');
 
-// const app = express();
+const app = express();
 
-// This tells Node/Express that the /client folder should act as the web root
-// app.use(express.static('client'));
+const mongoURI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost/unit11test' : 'mongodb://localhost/unit11dev';
+mongoose.connect(mongoURI);
 
-// Automatically parse urlencoded body content from incoming requests and place it
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname +'../dist/')); //serves the index.html
 
-// Automatically parse cookies and puts info in req object
-// app.use(cookieParser());
+/**
+* Automatically parse urlencoded body content from incoming requests and place it
+* in req.body
+*/
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
+/**
+* --- Express Routes ---
+* Express will attempt to match these routes in the order they are declared here.
+* If a route handler / middleware handles a request and sends a response without
+* calling `next()`, then none of the route handlers after that route will run!
+* This can be very useful for adding authorization to certain routes...
+*/
 
-
-// Root
+/**
+* root
+*/
 // app.get('/', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../www/index.html'));
-// });
 //
-// app.set('port', 3000);
-// app.listen(app.get('port'), function () {
-//   console.log('Node server listening on port 3000');
-// });
+//   /**
+//   * Since we set `ejs` to be the view engine above, `res.render` will parse the
+//   * template page we pass it (in this case 'client/secret.ejs') as ejs and produce
+//   * a string of proper HTML which will be sent to the client!
+//   */
+//   res.render('./../client/index');
 //
-// module.exports = app;
+// });
 
 
-
-
-"use strict";
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('./make-webpack-config')('dev');
-
-var express = require('express');
-var proxy = require('proxy-middleware');
-var url = require('url');
-var path = require('path');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-
-// --------your proxy----------------------
-var app = express();
-// proxy the request for static assets
-app.use('/assets', proxy(url.parse('http://localhost:8081/assets')));
-
-app.get('/*', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+/**
+* signup
+*/
+app.get('/signup', (req, res) => {
+  res.send('./../client/signup', {error: null});
 });
 
+app.post('/signup', userController.createUser,
+                    sessionController.startSession,
+                    cookieController.setSSIDCookie,
+                    (req, res) => {
+                      return res.redirect('/secret');
+                    });
 
-// -----your-webpack-dev-server------------------
-var server = new WebpackDevServer(webpack(config), {
-    contentBase: __dirname,
-    hot: true,
-    quiet: false,
-    noInfo: false,
-    publicPath: "/assets/",
 
-    stats: { colors: true }
-});
 
-// run the two servers
-server.listen(8081, "localhost", function() {});
-app.listen(8080);
+/**
+* login
+*/
+app.post('/login', userController.verifyUser,
+                   sessionController.startSession,
+                   cookieController.setSSIDCookie,
+                   (req, res) => {
+                     console.log('redirecting to /secret');
+                     return res.redirect('/secret');
+                   });
+
+
+/**
+* Authorized routes
+*/
+app.get('/secret', sessionController.isLoggedIn,
+                   (req, res) => {
+                     console.log('inside /secret get request');
+                      userController.getAllUsers((err, users) => {
+                        if (err) throw err;
+                        console.log('about to render users');
+                        res.send('./../client/secret', { users: users });
+                      });
+                    });
+
+app.post('/secret',
+        (req, res) => {
+          res.send('./../client/createSession');
+        });
+
+app.post('/createSession', userController.storeSesh,
+                          (req, res) => {
+                             userController.getAllUsers((err, users) => {
+                               if (err) throw err;
+                               console.log('about to render users');
+                               res.send('./../client/secret', { users: users });
+                             });
+                           });
+
+
+app.listen(3000);
 
 module.exports = app;
-
-
-//
-//
-// /**
-// * signup
-// */
-// app.get('/signup', (req, res) => {
-//   res.render('./../client/signup', {error: null});
-// });
-//
-// app.post('/signup', userController.createUser,
-//                     sessionController.startSession,
-//                     cookieController.setSSIDCookie,
-//                     (req, res) => {
-//                       return res.redirect('/secret');
-//                     });
-//
-//
-//
-// /**
-// * login
-// */
-// app.post('/login', userController.verifyUser,
-//                    sessionController.startSession,
-//                    cookieController.setSSIDCookie,
-//                    (req, res) => {
-//                      console.log('redirecting to /secret');
-//                      return res.redirect('/secret');
-//                    });
-//
-//
-// /**
-// * Authorized routes
-// */
-// app.get('/secret', sessionController.isLoggedIn,
-//                    (req, res) => {
-//                      console.log('inside /secret get request');
-//                       userController.getAllUsers((err, users) => {
-//                         if (err) throw err;
-//                         console.log('about to render users');
-//                         res.render('./../client/secret', { users: users });
-//                       });
-//                     });
-//
-// app.post('/secret',
-//         (req, res) => {
-//           res.render('./../client/createSession');
-//         });
-//
-// app.post('/createSession', userController.storeSesh,
-//                           (req, res) => {
-//                              userController.getAllUsers((err, users) => {
-//                                if (err) throw err;
-//                                console.log('about to render users');
-//                                res.render('./../client/secret', { users: users });
-//                              });
-//                            });
