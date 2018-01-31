@@ -1,33 +1,39 @@
 // modules
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-// import update from 'react-addons-update';
-// import axios from 'axios';
+import {
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
+
+import axios from 'axios';
 
 // styles
-// import '../styles/App.css';
+import styles from './../styles/app.css';
 
 // components
-// import Header from './Header';
-// import SearchBar from './SearchBar';
-// import ProductList from './ProductList';
-// import Cart from './Cart';
-
+import Home from './Home';
+import Login from './Login';
+import Register from './Register';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      url: '/'
+      image: '../images/okeanosBackground.jpg'
     }
   }
 
-
   render() {
-    const products = this.state.products;
     return (
-      <div className="App">
-        <h1>This is Okeanos bitch</h1>
+      <div className={styles.app} >
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </Switch>
+        <Link to="/">Home</Link>
+        <Link to='/login'>Login</Link>
       </div>
     );
   }

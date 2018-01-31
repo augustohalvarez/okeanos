@@ -18,36 +18,16 @@ app.use(express.static(__dirname +'../dist/')); //serves the index.html
 /**
 * Automatically parse urlencoded body content from incoming requests and place it
 * in req.body
-*/
+**/
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-/**
-* --- Express Routes ---
-* Express will attempt to match these routes in the order they are declared here.
-* If a route handler / middleware handles a request and sends a response without
-* calling `next()`, then none of the route handlers after that route will run!
-* This can be very useful for adding authorization to certain routes...
-*/
 
-/**
-* root
-*/
-// app.get('/', (req, res) => {
-//
-//   /**
-//   * Since we set `ejs` to be the view engine above, `res.render` will parse the
-//   * template page we pass it (in this case 'client/secret.ejs') as ejs and produce
-//   * a string of proper HTML which will be sent to the client!
-//   */
-//   res.render('./../client/index');
-//
-// });
 
 
 /**
 * signup
-*/
+**/
 app.get('/signup', (req, res) => {
   res.send('./../client/signup', {error: null});
 });
@@ -63,7 +43,7 @@ app.post('/signup', userController.createUser,
 
 /**
 * login
-*/
+**/
 app.post('/login', userController.verifyUser,
                    sessionController.startSession,
                    cookieController.setSSIDCookie,
@@ -75,7 +55,7 @@ app.post('/login', userController.verifyUser,
 
 /**
 * Authorized routes
-*/
+**/
 app.get('/secret', sessionController.isLoggedIn,
                    (req, res) => {
                      console.log('inside /secret get request');
