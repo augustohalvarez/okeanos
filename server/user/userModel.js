@@ -8,20 +8,48 @@ const SALT_WORK_FACTOR = 10;
 const bcrypt = require('bcryptjs');
 
 const seshSchema = new Schema({
-  date: {type: String, required: true},
-  location: {type: String, required: true},
-  rating: {type: Number, required: true},
-  timeIn: {type: Date, required: true},
-  timeOut: {type: Date, required: true},
-  height: {type: Number, required: true},
-  direction: {type: Number, required: true},
-  windSpeed: {type: Number, required: true},
-  windDirection: {type: Number, required: true}
+  date: {
+    type: String, required: true
+  },
+  location: {
+    type: String, required: true
+  },
+  rating: {
+    type: Number, required: true
+  },
+  timeIn: {
+    type: Date, required: true
+  },
+  timeOut: {
+    type: Date, required: true
+  },
+  height: {
+    type: Number, required: true
+  },
+  direction: {
+    type: Number, required: true
+  },
+  windSpeed: {
+    type: Number, required: true
+  },
+  windDirection: {
+    type: Number, required: true
+  }
 });
 
 const userSchema = new Schema({
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
+  email: {
+    type: String, required: true, unique: true, trim: true
+  },
+  username: {
+    type: String, required: true, unique: true, trim: true
+  },
+  password: {
+    type: String, required: true
+  },
+  passwordConf: {
+    type: String, required: true
+  },
   seshes: Array
 });
 

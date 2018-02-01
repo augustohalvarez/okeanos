@@ -7,7 +7,7 @@ import {
 
 
 // styles
-import styles from './../styles/app.css';
+import styles from './../styles/login.css';
 console.log(styles);
 
 class Login extends Component {
@@ -32,16 +32,24 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="form">
-          <form className="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button>login</button>
-            <p className="message">Not registered? <Link to="/register">Register</Link></p>
-          </form>
-        </div>
-      </div>
+      <form action={this.state.handleSubmit}>
+
+        <label for=""></label>
+        <input type="text" name="" id="login-un-input" placeholder="username" className="username" />
+
+        <label for=""></label>
+        <input type="password" name="" id="login-pw-input" placeholder="password" className="pass" />
+
+        <button type="submit">Login</button>
+
+        <span id='notRegisteredSpan'>
+          <h4>Don't have an account? </h4>
+        </span>
+        <span id='registerLinkSpan'>
+          <Link to='/register'>Register</Link>
+        </span>
+
+      </form>
     );
   }
 }

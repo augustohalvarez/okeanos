@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 
-class Home extends Component {
+class Landing extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -13,10 +13,10 @@ class Home extends Component {
   render() {
     return (
       <div className="App">
-
+        
       </div>
     );
   }
 }
 
-export default Home;
+export default Landing;

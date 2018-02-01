@@ -10,9 +10,10 @@ const sessionController = require('./session/sessionController');
 
 const app = express();
 
-const mongoURI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost/unit11test' : 'mongodb://localhost/unit11dev';
+const mongoURI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost/okeanos' : 'mongodb://localhost/okeanos';
 mongoose.connect(mongoURI);
 
+app.use(authChecker);
 app.use(express.static(__dirname +'../dist/')); //serves the index.html
 
 /**
@@ -23,13 +24,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-
+app.get('/', sessionController.isLoggedIn, (req, res) => {
+  console.log('hi');
+});
 
 /**
-* signup
+* register
 **/
-app.get('/signup', (req, res) => {
-  res.send('./../client/signup', {error: null});
+app.get('/register', (req, res) => {
+  res.send('./../client/register', {error: null});
 });
 
 app.post('/signup', userController.createUser,

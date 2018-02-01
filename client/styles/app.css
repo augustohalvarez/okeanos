@@ -16,15 +16,19 @@ html {
 
 .app {
   background-image: url('./../images/okeanosBackground.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100%;
   width: 100%;
   position: absolute;
 }
 
 .login {
-  width: 360px;
   padding: 8% 0 0;
-  margin: auto;
+  position: relative;
+  z-index: 1;
+  max-width: 200px;
+  margin: 0 auto;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);

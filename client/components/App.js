@@ -12,7 +12,7 @@ import axios from 'axios';
 import styles from './../styles/app.css';
 
 // components
-import Home from './Home';
+import Landing from './Landing';
 import Login from './Login';
 import Register from './Register';
 
@@ -27,13 +27,12 @@ class App extends Component {
   render() {
     return (
       <div className={styles.app} >
+        <Link to='/login'>Login</Link>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Landing} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
         </Switch>
-        <Link to="/">Home</Link>
-        <Link to='/login'>Login</Link>
       </div>
     );
   }
