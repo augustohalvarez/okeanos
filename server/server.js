@@ -10,10 +10,12 @@ const sessionController = require('./session/sessionController');
 
 const app = express();
 
+// require('./_routes')(app);   // <-- or whatever you do to include your API endpoints and middleware
+//
+
 const mongoURI = process.env.NODE_ENV === 'test' ? 'mongodb://localhost/okeanos' : 'mongodb://localhost/okeanos';
 mongoose.connect(mongoURI);
 
-app.use(authChecker);
 app.use(express.static(__dirname +'../dist/')); //serves the index.html
 
 /**
@@ -24,8 +26,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.get('/', sessionController.isLoggedIn, (req, res) => {
-  console.log('hi');
+app.get('/api/user', (req, res) => {
+  console.log('hi from app.get "/api/user" route');
 });
 
 /**
@@ -84,6 +86,11 @@ app.post('/createSession', userController.storeSesh,
                            });
 
 
-app.listen(3000);
+// app.listen(3000);
+
+app.set('port', 3000);
+app.listen(app.get('port'), function() {
+    console.log('Node App Started');
+});
 
 module.exports = app;

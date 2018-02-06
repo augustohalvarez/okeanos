@@ -8,7 +8,6 @@ import {
 
 // styles
 import styles from './../styles/login.css';
-console.log(styles);
 
 class Login extends Component {
   constructor(props) {

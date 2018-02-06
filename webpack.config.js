@@ -39,6 +39,13 @@ module.exports = {
 
   // Configuration for webpack-dev-server
   devServer: {
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'dist'),
+    historyApiFallback: true,
+    inline: true,
+    host: 'localhost', // Defaults to `localhost`
+    port: 8080, // Defaults to 8080
+    proxy: {
+      '/api/*': 'http://localhost:3000'
+    }
   }
 };

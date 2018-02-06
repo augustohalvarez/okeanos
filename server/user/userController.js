@@ -1,8 +1,8 @@
 const modelImports = require('./userModel');
 let User = modelImports.user;
 let Sesh = modelImports.sesh;
-console.log('User model: ', User);
-console.log('Sesh model: ', Sesh);
+// console.log('User model: ', User);
+// console.log('Sesh model: ', Sesh);
 
 let request = require('request');
 
