@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import {
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 
 // styles
-import styles from './../styles/app.css';
+import styles from './../styles/login.css';
 
 class Register extends Component {
   constructor(props) {
@@ -26,17 +31,28 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="form">
-          <form className="register-form" onSubmit={this.handleSubmit}>
-            <input type="text" placeholder="name"/>
-            <input type="password" placeholder="password"/>
-            <input type="text" placeholder="email address"/>
-            <button>create</button>
-            <p className="message">Already registered? <a href="#">Sign In</a></p>
-          </form>
-        </div>
-      </div>
+      <form action={this.state.handleSubmit}>
+
+        <label for=""></label>
+        <input type="text" name="" id="login-un-input" placeholder="email" className="username" />
+
+        <label for=""></label>
+        <input type="password" name="" id="login-pw-input" placeholder="password" className="pass" />
+
+        <label for=""></label>
+        <input type="password" name="" id="login-pw-input" placeholder="confirm password" className="pass" />
+
+        <button type="submit">Login</button>
+
+        <span id='notRegisteredSpan'>
+          <h4>Have an account? </h4>
+        </span>
+
+        <span id='registerLinkSpan'>
+          <Link to='/login'>Login</Link>
+        </span>
+
+      </form>
     );
   }
 }

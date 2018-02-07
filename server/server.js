@@ -26,8 +26,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.get('/api/user', (req, res) => {
-  console.log('hi from app.get "/api/user" route');
+app.post('/api/login', (req, res) => {
+  console.log('hi api/login backend');
+  console.log('req.body ---> ', req.body);
+
 });
 
 /**

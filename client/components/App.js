@@ -28,6 +28,7 @@ class App extends Component {
     return (
       <div className={styles.app} >
         <Link to='/login'>Login</Link>
+        <Link to='/register'>Register</Link>
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route path="/login" component={Login} />

@@ -15,35 +15,35 @@ class Login extends Component {
     this.state = {
       foo: 'bar'
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-
-    fetch('/login', {
-      method: 'POST',
-      body: data,
-    });
-  }
-
+  // handleSubmit(event) {
+  //   let data = {
+  //     username: document.getElementById('login-un-input').value,
+  //     password: document.getElementById('login-pw-input').value
+  //   };
+  //
+  //   console.log('data ->', data);
+  //
+  //   fetch('/api/login', {
+  //     method: 'POST',
+  //     body: data
+  //   });
+  // }
 
   render() {
     return (
-      <form action={this.state.handleSubmit}>
-
-        <label for=""></label>
-        <input type="text" name="" id="login-un-input" placeholder="username" className="username" />
-
-        <label for=""></label>
-        <input type="password" name="" id="login-pw-input" placeholder="password" className="pass" />
+      <form method='POST' action='/api/login' autoComplete='off'>
+        <input type="text" name="username" id="login-un-input" placeholder="username" className="username" />
+        <input type="password" name="password" id="login-pw-input" placeholder="password" className="pass" />
 
         <button type="submit">Login</button>
 
         <span id='notRegisteredSpan'>
           <h4>Don't have an account? </h4>
         </span>
+
         <span id='registerLinkSpan'>
           <Link to='/register'>Register</Link>
         </span>

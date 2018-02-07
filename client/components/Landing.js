@@ -13,7 +13,8 @@ class Landing extends Component {
   render() {
     return (
       <div className="App">
-        
+        <h3>Landing page</h3>
+        <h3>Info about site</h3>
       </div>
     );
   }
