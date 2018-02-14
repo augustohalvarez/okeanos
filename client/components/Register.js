@@ -13,39 +13,25 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      foo: 'bar'
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-
-    fetch('/register', {
-      method: 'POST',
-      body: data,
-    });
-  }
-
 
   render() {
     return (
-      <form action={this.state.handleSubmit}>
+      <form method='POST' action='/api/register' autoComplete='off'>
 
-        <label for=""></label>
-        <input type="text" name="" id="login-un-input" placeholder="email" className="username" />
+        <input type="email" name="email"  placeholder="email" className="email" />
 
-        <label for=""></label>
-        <input type="password" name="" id="login-pw-input" placeholder="password" className="pass" />
+        <input type="emailConf" name="emailConf"  placeholder="confirm email" className="email" />
 
-        <label for=""></label>
-        <input type="password" name="" id="login-pw-input" placeholder="confirm password" className="pass" />
+        <input type="password" name="password" placeholder="password" className="pass" />
 
-        <button type="submit">Login</button>
+        <input type="password" name="passwordConf" placeholder="confirm password" className="pass" />
+
+        <button type="submit">Register</button>
 
         <span id='notRegisteredSpan'>
-          <h4>Have an account? </h4>
+          <h4> Have an account? </h4>
         </span>
 
         <span id='registerLinkSpan'>

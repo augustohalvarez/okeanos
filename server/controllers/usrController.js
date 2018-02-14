@@ -4,33 +4,25 @@ const db = require('../database');
 
 const usrController = {};
 
-// const userSchema = new Schema({
-//   email: {
-//     type: String, required: true, unique: true, trim: true
-//   },
-//   username: {
-//     type: String, required: true, unique: true, trim: true
-//   },
-//   password: {
-//     type: String, required: true
-//   },
-//   passwordConf: {
-//     type: String, required: true
-//   },
-//   seshes: Array
-// });
+const SALT_WORK_FACTOR = 10;
+const bcrypt = require('bcryptjs');
+
 
 
 usrController.createUsr = (req, res, next) => {
-  const queryStr = 'SELECT * FROM items ORDER BY num_sold ASC LIMIT 6';
-  db.conn.query(queryStr, (err, data) => {
+  const queryStr = 'INSERT INTO usr (email, email_conf, password, password_conf) values ($1, $2, $3, $4) RETURNING _id';
+  const { email, email_conf, password, password_conf } = req.body;
+  const valuesArr = [  email, email_conf, password, password_conf ];
+
+  db.conn.query(queryStr, valuesArr, (err, data) => {
     if (err) {
-      return res.status(404).end("An Error occured on DB Query");
+      return res.status(404).end("An Error occured on DB Insert items_table");
     }
-    if (data.rows.length === 0) {
-      return res.status(200).end('Not Found');
+    if (data.length === 0) {
+      console.log('Error creating new Entry..');
+      return;
     }
-    return res.status(200).end(JSON.stringify(data.rows));
+    next();
   });
 };
 
@@ -214,4 +206,4 @@ usrController.createUsr = (req, res, next) => {
 //     });
 // };
 //
-// module.exports = userController;
+module.exports = usrController;

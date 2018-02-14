@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import Sess from './Sess';
+import {
+  Link,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 class Landing extends Component {
   constructor(props) {
@@ -12,9 +18,15 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h3>Landing page</h3>
-        <h3>Info about site</h3>
+      <div className="home">
+        <h3>Welcome ("user"... todo)</h3>
+        <h1> Your Sessions... </h1>
+
+        <div className="sessContainer">
+          <Sess />
+        </div>
+
+        <Link to='/saveSess'>Save a session</Link>
       </div>
     );
   }

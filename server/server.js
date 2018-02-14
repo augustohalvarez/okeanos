@@ -6,22 +6,13 @@ const cookieParser = require('cookie-parser');
 const usrController = require('./controllers/usrController');
 const cookieController = require('./controllers/cookieController');
 const sessionController = require('./controllers/sessionController');
+const sessController = require('./controllers/sessController');
 
 const db = require('./database.js');
-
 const app = express();
 
-// require('./_routes')(app);   // <-- or whatever you do to include your API endpoints and middleware
-//
-
-
 app.use(express.static(__dirname +'../dist/')); //serves the index.html
-
-/**
-* Automatically parse urlencoded body content from incoming requests and place it
-* in req.body
-**/
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
@@ -29,6 +20,18 @@ app.post('/api/login', (req, res) => {
   console.log('hi api/login backend');
   console.log('req.body ---> ', req.body);
 
+});
+
+app.post('api/register', usrController.createUsr, (req, res) => {
+  console.log('called app.post api/register');
+});
+
+app.post('/api/saveSess', sessController.saveSess, (req, res) => {
+  console.log('called app.post api/saveSess');
+});
+
+app.get('/api/saveSess', (req, res) => {
+  console.log('called app.get api/saveSess');
 });
 
 

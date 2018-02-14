@@ -14,6 +14,7 @@ import styles from './../styles/app.css';
 import Landing from './Landing';
 import Login from './Login';
 import Register from './Register';
+import SaveSess from './SaveSess';
 
 class App extends Component {
   constructor(props) {
@@ -30,8 +31,9 @@ class App extends Component {
         <Link to='/register'>Register</Link>
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/saveSess" component={SaveSess} />
         </Switch>
       </div>
     );
