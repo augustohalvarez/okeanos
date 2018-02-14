@@ -1,5 +1,5 @@
 
-const sessionController = require('./../session/sessionController');
+const sessionController = require('./sessionController');
 
 const cookieController = {};
 cookieController.setCookie = setCookie;
