@@ -19,20 +19,24 @@ class SaveSess extends Component {
 
   render() {
     return (
-      <form method='POST' action='/api/saveSess' autoComplete='off'>
+      <div className="formContainer">
+        <h3>Input your session details</h3>
+        <form method='POST' action='/api/saveSess' autoComplete='off'>
 
-        <input type="date" name="date"  placeholder="date" className="date" />
+          <input type="date" name="date"  placeholder="date" className="date" required/>
 
-        <input type="text" name="location"  placeholder="location" className="location" />
+          <input type="text" name="location"  placeholder="location" className="location" required/>
 
-        <input type="number" min="1" max="10" name="rating" placeholder="rating" className="rating" />
+          <input type="number" min="1" max="10" name="rating" placeholder="rating" className="rating" required/>
 
-        <input type="time" name="timeIn" placeholder="time in" className="timeIn" />
+          <input type="time" name="timeIn" placeholder="time in" className="timeIn" required/>
 
-        <input type="time" name="timeOut" placeholder="time out" className="timeOut" />
+          <input type="time" name="timeOut" placeholder="time out" className="timeOut" required/>
 
-        <button type="submit">Save Session</button>
-      </form>
+          <button type="submit">Save Session</button>
+        </form>
+      </div>
+
     );
   }
 }
