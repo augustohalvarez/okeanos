@@ -29,6 +29,8 @@ class SaveSess extends Component {
 
           <input type="number" min="1" max="10" name="rating" placeholder="rating" className="rating" required/>
 
+          <input type="number" min="1" max="10" name="shape" placeholder="shape(1: closed out, 10: A frames)" className="rating" required/>
+
           <input type="time" name="timeIn" placeholder="time in" className="timeIn" required/>
 
           <input type="time" name="timeOut" placeholder="time out" className="timeOut" required/>

@@ -1,17 +1,58 @@
 /*** sessController.js ***/
 
-/*** usrController.js ***/
-
 const db = require('../database');
+const env = require('dotenv').config(); // contains MSW API key/secret
+const axios = require('axios');
 
 const sessController = {};
 
+const spotIDs = {
+  "zuma": 853,
+  "silver strand": 276
+}
+
+const spotDict = {
+  "zuma": {
+    spotID: 853,
+    address: "29900+Pacific+Coast+Hwy,+Malibu,+CA",
+    lat: 34.018600,
+    lon: -118.825390
+  },
+  "silver strand": {
+    spotID: 276,
+    lat: 34.152395,
+    lon: -119.219178
+  }
+}
+
 sessController.saveSess = (req, res, next) => {
   // Three Steps:
-  // 1) Get form data from req object
+  // 1) Receive form data from req object
+  // 2) GET coordinates of req.body.location from google api
   // 2) Get swell data from Magicseaweed API
   // 3) Save all data to database
-  console.log('req.body ---> ', req.body);
+
+
+  // 1)
+  const userData = req.body;
+
+
+  // const timeInUTC = Math.round((new Date(commaSeparated(userData.date), userData.timeIn)).getTime() / 1000);
+  // const timeOutUTC = Math.round((new Date(commaSeparated(userData.date), userData.timeOut)).getTime() / 1000);
+
+  const WWOurl = `http://api.worldweatheronline.com/premium/v1/past-marine.ashx?key=${process.env.WWO_API_KEY}&format=json&date=${userData.date}&q=${spotDict[userData.location].lat},${spotDict[userData.location].lon}`;
+
+  const MSWurl = `http://magicseaweed.com/api/${process.env.MSW_API_KEY}/forecast/?spot_id=${spotIDs[userData.location]}&units=us$timestamp=1518322260`;
+
+  // 2)
+  axios.get(MSWurl)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
 
 
   // const queryStr = 'INSERT INTO usr (email, email_conf, password, password_conf) values ($1, $2, $3, $4) RETURNING _id';
